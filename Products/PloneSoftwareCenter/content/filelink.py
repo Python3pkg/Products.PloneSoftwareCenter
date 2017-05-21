@@ -20,8 +20,8 @@ PSCFileLinkSchema = BaseSchema.copy() + Schema((
         searchable=1,
         accessor="Title",
         widget=StringWidget(
-            label=_(u"label_file_title", default=u"File Description"),
-            description=_(u"help_file_title_filelink", default=u"File description. Normally something like 'Product Package', 'Product Installer', or 'Product Bundle' - if you have several packages in one archive. The uploaded filename will not be changed."),
+            label=_("label_file_title", default="File Description"),
+            description=_("help_file_title_filelink", default="File description. Normally something like 'Product Package', 'Product Installer', or 'Product Bundle' - if you have several packages in one archive. The uploaded filename will not be changed."),
             i18n_domain="plonesoftwarecenter",
         ),
     ),
@@ -32,8 +32,8 @@ PSCFileLinkSchema = BaseSchema.copy() + Schema((
         searchable=0,
         vocabulary='getPlatformVocab',
         widget=SelectionWidget(
-            label=_(u"label_file_platform", default=u"Platform"),
-            description=_(u"help_file_platform", default=u"List of platforms available for selection"),
+            label=_("label_file_platform", default="Platform"),
+            description=_("help_file_platform", default="List of platforms available for selection"),
             i18n_domain="plonesoftwarecenter",
         ),
     ),
@@ -43,8 +43,8 @@ PSCFileLinkSchema = BaseSchema.copy() + Schema((
         required=1,
         validators=('isURL',),
         widget=StringWidget(
-            label=_(u"label_file_ext_url", default=u"URL for externally hosted file"),
-            description=_(u"help_file_ext_url", default=u"Please enter the URL where the file is hosted."),
+            label=_("label_file_ext_url", default="URL for externally hosted file"),
+            description=_("help_file_ext_url", default="Please enter the URL where the file is hosted."),
             i18n_domain="plonesoftwarecenter",
         ),
     ),
@@ -53,8 +53,8 @@ PSCFileLinkSchema = BaseSchema.copy() + Schema((
         name='externalFileSize',
         required=0,
         widget=StringWidget(
-            label=_(u"label_file_ext_size", default=u"File size"),
-            description=_(u"help_file_ext_size", default=u"Please enter the size of the externally hosted file, if known. Include the notation kB or MB."),
+            label=_("label_file_ext_size", default="File size"),
+            description=_("help_file_ext_size", default="Please enter the size of the externally hosted file, if known. Include the notation kB or MB."),
             i18n_domain="plonesoftwarecenter",
         ),
     ),

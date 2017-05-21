@@ -1,4 +1,4 @@
-from base import PSCTestCase
+from .base import PSCTestCase
 
 from DateTime.DateTime import DateTime
 import os

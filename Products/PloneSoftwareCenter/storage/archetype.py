@@ -8,8 +8,8 @@ class ArchetypeStorage(AttributeStorage):
     """
     implements(IPSCFileStorage)
 
-    title = u"Archetypes"
-    description = u"stores releases via Archetype's AttributeStorage"
+    title = "Archetypes"
+    description = "stores releases via Archetype's AttributeStorage"
 
     def __init__(self, context):
         self.context = context

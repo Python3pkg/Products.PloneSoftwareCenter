@@ -33,7 +33,7 @@ class TestStorage(PSCTestCase):
         vocab = getFileStorageVocab(self.release)
         found = False
         for index, title in vocab:
-            if index == u'archetype' and title == "Archetypes (stores releases via Archetype's AttributeStorage)":
+            if index == 'archetype' and title == "Archetypes (stores releases via Archetype's AttributeStorage)":
                 found = True
                 break
         self.assert_(found)
@@ -51,8 +51,8 @@ class TestStorage(PSCTestCase):
         # let's add a new strategy
         from zope.interface import implements
         class DummyStorage(object):
-            title = u"Dummy"
-            description = u"stores nothing"
+            title = "Dummy"
+            description = "stores nothing"
             implements(IPSCFileStorage)
             storage = []
 

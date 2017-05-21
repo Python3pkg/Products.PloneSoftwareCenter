@@ -204,7 +204,7 @@ class ProjectView(BrowserView):
         res = []
 
         try:
-            for k, v in self.context.getSelfCertificationCriteriaVocab().items():
+            for k, v in list(self.context.getSelfCertificationCriteriaVocab().items()):
                 if k in self.context.getSelfCertifiedCriteria():
                     res.append({'selected': True, 'text': v})
                 else:

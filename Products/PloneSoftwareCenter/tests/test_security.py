@@ -1,5 +1,5 @@
-from base import PSCTestCase
-from base import developer_warning
+from .base import PSCTestCase
+from .base import developer_warning
 from Testing import ZopeTestCase
 
 from AccessControl.Permission import Permission

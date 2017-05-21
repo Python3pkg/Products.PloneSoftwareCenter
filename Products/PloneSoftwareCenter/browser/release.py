@@ -66,9 +66,9 @@ class ReleaseView(BrowserView):
         entered.
         """
         if not value:
-            return _(u"Please provide a version number")
+            return _("Please provide a version number")
         if re.search (r'[^\w.-]', value):
-            return _(u'Please only use numbers, letters, underscores (_), '
+            return _('Please only use numbers, letters, underscores (_), '
                     'dashes (-) and periods (.) in the version string, no '
                     'other punctuation characters or whitespace')
         else:

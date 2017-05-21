@@ -27,8 +27,8 @@ PSCDocumentationFolderSchema = OrderedBaseFolderSchema.copy() + Schema((
         searchable=1,
         mode='r', # Leave the custom auto-generated ID
         widget=StringWidget (
-            label=_(u"label_doc_short_name", default=u"Short name"),
-            description=_(u"help_doc_short_name", default=u"Short name of the container - this should be 'documentation' to comply with the standards."),
+            label=_("label_doc_short_name", default="Short name"),
+            description=_("help_doc_short_name", default="Short name of the container - this should be 'documentation' to comply with the standards."),
             i18n_domain="plonesoftwarecenter",
         ),
     ),
@@ -39,8 +39,8 @@ PSCDocumentationFolderSchema = OrderedBaseFolderSchema.copy() + Schema((
         searchable=1,
         accessor="Title",
         widget=StringWidget(
-            label=_(u"label_doc_title", default=u"Title"),
-            description=_(u"help_doc_title", default=u"Enter a title for the container"),
+            label=_("label_doc_title", default="Title"),
+            description=_("help_doc_title", default="Enter a title for the container"),
             i18n_domain="plonesoftwarecenter",
         ),
     ),
@@ -51,8 +51,8 @@ PSCDocumentationFolderSchema = OrderedBaseFolderSchema.copy() + Schema((
         searchable=1,
         accessor="Description",
         widget=TextAreaWidget(
-            label=_(u"label_doc_description", default=u"Description"),
-            description=_(u"help_doc_description", default=u"Enter a description of the container"),
+            label=_("label_doc_description", default="Description"),
+            description=_("help_doc_description", default="Enter a description of the container"),
             i18n_domain="plonesoftwarecenter",
         ),
     ),
@@ -65,8 +65,8 @@ PSCDocumentationFolderSchema = OrderedBaseFolderSchema.copy() + Schema((
         required=0,
         languageIndependent=1,
         widget=LinesWidget(
-            label=_(u"phc_label_audience_helpcenter", default=u"Documentation audiences"),
-            description=_(u"psc_audience_helpcenter", default=u"Audiences are optional. One type of audience on each line. If you leave this blank, audience information will not be used. Audience is typically 'End user', 'Developer' and similar."),
+            label=_("phc_label_audience_helpcenter", default="Documentation audiences"),
+            description=_("psc_audience_helpcenter", default="Audiences are optional. One type of audience on each line. If you leave this blank, audience information will not be used. Audience is typically 'End user', 'Developer' and similar."),
             i18n_domain = "plonehelpcenter",
         ),
     ),

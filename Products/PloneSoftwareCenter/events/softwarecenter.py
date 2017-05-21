@@ -73,7 +73,7 @@ def changeStorageStrategy(psc, event):
                 f.setDownloadableFile(content)
             finally:
                 field.getStorage = old_storage
-    except Exception, e:
+    except Exception as e:
         transaction.abort()
         raise e
 

@@ -6,8 +6,8 @@ These tests ensure that certain actions can be done only by reviewers.
 import unittest
 from Testing.ZopeTestCase import ZopeDocTestSuite
 
-from base import PSCFunctionalTestCase
-from utils import optionflags
+from .base import PSCFunctionalTestCase
+from .utils import optionflags
 
 def test_edit_project_fields():
     """A project contains two fields that an owner should not be able to

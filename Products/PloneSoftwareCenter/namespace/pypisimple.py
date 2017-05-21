@@ -155,9 +155,9 @@ class PyPIProjectView(PyPISimpleView):
             # then url links
             fields = ('homepage', 'repository')
             for field in fields:
-                value = getattr(project, field, u'')
+                value = getattr(project, field, '')
                 title = '%s %s' % (project_name, field)
-                if value != u'':
+                if value != '':
                     links.append({'url': value, 'title': title,
                                   'rel': field})
 

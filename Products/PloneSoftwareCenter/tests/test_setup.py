@@ -1,4 +1,4 @@
-from base import PSCTestCase
+from .base import PSCTestCase
 
 
 class TestProductInstall(PSCTestCase):
@@ -17,17 +17,17 @@ class TestProductInstall(PSCTestCase):
         }
 
     def testTypesInstalled(self):
-        for t in self.types.keys():
+        for t in list(self.types.keys()):
             self.failUnless(t in self.portal.portal_types.objectIds(),
                             '%s content type not installed' % t)
 
     def testWorkflowsInstalled(self):
-        for wf in self.types.values():
+        for wf in list(self.types.values()):
             if wf:
                 self.failUnless(wf in self.portal.portal_workflow.objectIds())
 
     def testWorkflowsMapped(self):
-        for fti, wf in self.types.items():
+        for fti, wf in list(self.types.items()):
             chain = self.portal.portal_workflow.getChainForPortalType(fti)
             if wf is None:
                 self.assertEqual(0, len(chain))
@@ -57,7 +57,7 @@ class TestProductInstall(PSCTestCase):
 
     def testPortalFactoryConfigured(self):
         factory = self.portal.portal_factory
-        for t in self.types.keys():
+        for t in list(self.types.keys()):
             self.failUnless(t in factory.getFactoryTypes())
 
     def testNavtreePropertiesConfigured(self):

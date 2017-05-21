@@ -1,5 +1,5 @@
 from Products.CMFCore.utils import getToolByName
-from StringIO import StringIO
+from io import StringIO
 from Products.contentmigration.walker import CustomQueryWalker
 from Products.contentmigration.migrator import BaseInlineMigrator
 from zope.annotation.interfaces import IAnnotations
@@ -43,7 +43,7 @@ class RatingsMigrator(BaseInlineMigrator):
 
 def migrate(self):
     out = StringIO()
-    print >> out, "Starting ratings migration"
+    print("Starting ratings migration", file=out)
 
     portal_url = getToolByName(self, 'portal_url')
     portal = portal_url.getPortalObject()
@@ -52,8 +52,8 @@ def migrate(self):
     walker = CustomQueryWalker(portal, RatingsMigrator,
                                query = {'portal_type': 'PSCProject'})
     transaction.savepoint(optimistic=True)
-    print >> out, "Switching from contentratings to twothumbs.."
+    print("Switching from contentratings to twothumbs..", file=out)
     walker.go(out=out)
-    print >> out, walker.getOutput()
+    print(walker.getOutput(), file=out)
 
-    print >> out, "Migration finished"
+    print("Migration finished", file=out)

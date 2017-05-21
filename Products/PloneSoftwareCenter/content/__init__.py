@@ -4,15 +4,15 @@ $Id$
 
 import sys
 
-import root
-import docfolder
-import downloadablefile
-import filelink
-import proposal
-import proposalfolder
-import project
-import release
-import releasefolder
+from . import root
+from . import docfolder
+from . import downloadablefile
+from . import filelink
+from . import proposal
+from . import proposalfolder
+from . import project
+from . import release
+from . import releasefolder
 
 sys.modules['Products.PloneSoftwareCenter.content.PloneSoftwareCenter'] = root
 sys.modules['Products.PloneSoftwareCenter.content.PSCDocumentationFolder'] = docfolder

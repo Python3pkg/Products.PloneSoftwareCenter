@@ -1,4 +1,4 @@
-from base import PSCTestCase
+from .base import PSCTestCase
 
 from DateTime.DateTime import DateTime
 
@@ -96,7 +96,7 @@ class TestSoftwareCenter(PSCTestCase):
           ])
         self.assertEqual(
           (('cat1', 'Category 1'), ('cat2', 'Category 2')),
-          self.psc.getAvailableCategoriesAsDisplayList().items()
+          list(self.psc.getAvailableCategoriesAsDisplayList().items())
           )
 
     def testGetAvailableLicensesAsDisplayList(self):
@@ -106,7 +106,7 @@ class TestSoftwareCenter(PSCTestCase):
           ])
         self.assertEqual(
           (('lic1', 'License 1'), ('lic2', 'License 2')),
-          self.psc.getAvailableLicensesAsDisplayList().items()
+          list(self.psc.getAvailableLicensesAsDisplayList().items())
           )
 
     def testGetAvailableVersionsAsDisplayList(self):
@@ -116,7 +116,7 @@ class TestSoftwareCenter(PSCTestCase):
           ])
         self.assertEqual(
           (('2.0', '2.0'), ('1.0', '1.0')),
-          self.psc.getAvailableVersionsAsDisplayList().items())
+          list(self.psc.getAvailableVersionsAsDisplayList().items()))
 
     def testGetAvailableSelfCertificationCriteriaAsDisplayList(self):
         self.psc.setAvailableSelfCertificationCriteria([
@@ -125,7 +125,7 @@ class TestSoftwareCenter(PSCTestCase):
           ])
         self.assertEqual(
           (('Criterion 1', 'Criterion 1'), ('Criterion 2', 'Criterion 2')),
-          self.psc.getAvailableSelfCertificationCriteriaAsDisplayList().items())
+          list(self.psc.getAvailableSelfCertificationCriteriaAsDisplayList().items()))
 
 class TestSoftwareCenterRoles(PSCTestCase):
 
@@ -312,7 +312,7 @@ class TestSoftwareCenterView(PSCTestCase):
         #for cat1 first, and cat2 second
 
         self.assertEqual(2, len(categories))
-        keys1, keys2 = categories[0].keys(), categories[1].keys()
+        keys1, keys2 = list(categories[0].keys()), list(categories[1].keys())
         keys1.sort()
         keys2.sort()
 
@@ -347,7 +347,7 @@ class TestSoftwareCenterView(PSCTestCase):
         #because it was released later
         self.assertEqual(2, len(categories[0]['releases']))
         releaseDict = categories[0]['releases'][0]
-        keys = releaseDict.keys()
+        keys = list(releaseDict.keys())
         keys.sort()
         self.assertEqual(['date', 'description', 'parent_url', 'review_state',
           'title'], keys)

@@ -1,4 +1,4 @@
-from base import PSCTestCase
+from .base import PSCTestCase
 
 from Products.CMFCore.utils import getToolByName
 
@@ -51,7 +51,7 @@ class TestDocFolder(PSCTestCase):
             'HelpCenterInstructionalVideoFolder': 'video',
             }
 
-        for k, v in consideredTypes.items():
+        for k, v in list(consideredTypes.items()):
             self.assertEqual(v, self.documentation.generateUniqueId(k))
 
         self.allowDocumentContentType()

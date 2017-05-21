@@ -1,4 +1,4 @@
-from StringIO import StringIO
+from io import StringIO
 from Products.CMFCore.utils import getToolByName
 
 from Products.PloneSoftwareCenter import config
@@ -18,6 +18,6 @@ def install(self):
         tool.setImportContext('profile-%s' % EXTENSION_PROFILES[0])
         tool.runAllImportSteps(purge_old=False)
 
-    print >> out, "Successfully installed %s" % config.PROJECTNAME
+    print("Successfully installed %s" % config.PROJECTNAME, file=out)
 
     return out.getvalue()

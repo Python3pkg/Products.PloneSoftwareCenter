@@ -4,7 +4,7 @@ $Id$
 from zLOG import LOG, PROBLEM
 import os
 from App.Common import package_home
-from trove import TroveClassifier
+from .trove import TroveClassifier
 
 
 # Use ExternalStorage for PSCFile?

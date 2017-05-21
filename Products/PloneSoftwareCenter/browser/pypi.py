@@ -104,18 +104,18 @@ class PyPIView(BrowserView):
         """ Validate the contents of the metadata.
         """
         for field in ('name', 'version'):
-            if not data.has_key(field):
-                raise ValueError, 'Missing required field "%s"' % field
-        if data.has_key('metadata_version'):
+            if field not in data:
+                raise ValueError('Missing required field "%s"' % field)
+        if 'metadata_version' in data:
             del data['metadata_version']
 
         # make sure relationships are lists
         for name in ('requires', 'provides', 'obsoletes'):
-            if data.has_key(name) and not isinstance(data[name], list):
+            if name in data and not isinstance(data[name], list):
                 data[name] = [data[name]]
 
         # make sure classifiers is a list
-        if data.has_key('classifiers'):
+        if 'classifiers' in data:
             classifiers = data['classifiers']
             if not isinstance(classifiers, list):
                 classifiers = [classifiers]
@@ -124,26 +124,26 @@ class PyPIView(BrowserView):
         # check requires and obsoletes
         def validate_version_predicates(col, sequence):
             try:
-                map(VersionPredicate, sequence)
-            except ValueError, message:
-                raise ValueError, 'Bad "%s" syntax: %s' % (col, message)
+                list(map(VersionPredicate, sequence))
+            except ValueError as message:
+                raise ValueError('Bad "%s" syntax: %s' % (col, message))
         for col in ('requires', 'obsoletes'):
-            if data.has_key(col) and data[col]:
+            if col in data and data[col]:
                 validate_version_predicates(col, data[col])
 
         # check provides
-        if data.has_key('provides') and data['provides']:
+        if 'provides' in data and data['provides']:
             try:
-                map(check_provision, data['provides'])
-            except ValueError, message:
-                raise ValueError, 'Bad "provides" syntax: %s' % message
+                list(map(check_provision, data['provides']))
+            except ValueError as message:
+                raise ValueError('Bad "provides" syntax: %s' % message)
 
         # check classifiers (filter them out)
         cats = [cols.split('|')[-1] for cols in self._get_classifiers()]
         filter_ = lambda key: key in cats
 
-        if data.has_key('classifiers'):
-            data['classifiers'] = filter(filter_, data['classifiers'])
+        if 'classifiers' in data:
+            data['classifiers'] = list(filter(filter_, data['classifiers']))
 
     def _is_published(self, project):
         """returns true if not publised"""
@@ -162,7 +162,7 @@ class PyPIView(BrowserView):
         try:
             project, release = self._get_package(normalized_name,
                                                  name, version, msg)
-        except Unauthorized, e:
+        except Unauthorized as e:
             return self.fail(str(e), 401)
 
         # Now, edit info
@@ -173,7 +173,7 @@ class PyPIView(BrowserView):
         self._maybe_submit(project)
 
         release_data = {}
-        for k, v in RELEASE_MAP.items():
+        for k, v in list(RELEASE_MAP.items()):
             value = data.get(v)
             if not value:
                 continue
@@ -193,7 +193,7 @@ class PyPIView(BrowserView):
         url = data.get('download_url')
         if not url in ('', 'UNKNOWN', None):
             rl_data = {}
-            for k, v in RELEASE_LINK_MAP.items():
+            for k, v in list(RELEASE_LINK_MAP.items()):
                 value = data.get(v)
                 if not value:
                     continue
@@ -235,7 +235,7 @@ class PyPIView(BrowserView):
         if data is None:
             data = self.data
         project_data = {}
-        for k, v in PROJECT_MAP.items():
+        for k, v in list(PROJECT_MAP.items()):
             value = data.get(v)
             if not value:
                 continue
@@ -381,7 +381,7 @@ class PyPIView(BrowserView):
     #
     def fail(self, msg, status=400):
         if self.request is None:
-            raise ValueError, msg
+            raise ValueError(msg)
         # Abort the transaction explicitly, as we won't raise an
         # exception here.
         transaction.abort()
@@ -404,7 +404,7 @@ class PyPIView(BrowserView):
         self.data = data
         try:
             self.verify(data=data)
-        except ValueError, message:
+        except ValueError as message:
             err = 'Error processing form: %s' % message
             return self.fail(err)
 
@@ -423,7 +423,7 @@ class PyPIView(BrowserView):
 
         try:
             self._validate_metadata(data)
-        except ValueError, message:
+        except ValueError as message:
             err = 'Error processing form: %s' % message
             return self.fail(err)
 
@@ -453,7 +453,7 @@ class PyPIView(BrowserView):
         try:
             project, release = self._get_package(normalized_name,
                                                  name, version)
-        except Unauthorized, e:
+        except Unauthorized as e:
             return self.fail(str(e), 401)
 
         # Submit project if not submitted yet.

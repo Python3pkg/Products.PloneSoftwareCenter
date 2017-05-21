@@ -80,7 +80,7 @@ class SoftwareCenterView(BrowserView):
             field = self.context.getField('availableCategories')
             field_name = 'getCategories'
 
-        for cat in vocab.keys():
+        for cat in list(vocab.keys()):
             if cat in filtered_values:
                 id = field.lookup(self.context, cat, 0)
                 name = field.lookup(self.context, cat, 1)

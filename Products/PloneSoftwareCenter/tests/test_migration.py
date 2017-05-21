@@ -76,7 +76,7 @@ class TestMigration(PSCTestCase):
                 ExternalStorage
             ExternalStorage  # pyflakes
         except ImportError:
-            print "ExternalStorage not available. Ignoring test_migration."
+            print("ExternalStorage not available. Ignoring test_migration.")
             return
         # patching _pypi_certified_owner
         # so we don't query pypi for real here

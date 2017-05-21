@@ -1,7 +1,7 @@
 """
 contains handlers for GS
 """
-import xmlrpclib
+import xmlrpc.client
 import tempfile
 import os
 import shutil
@@ -11,10 +11,10 @@ import zipfile
 import re
 import sys
 import subprocess
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import socket
 
-from StringIO import StringIO
+from io import StringIO
 from OFS.Image import File
 
 from zExceptions import Unauthorized
@@ -60,8 +60,8 @@ def timeout(function):
 class DistantFile(object):
     def __init__(self, url):
         try:
-            self.handle = urllib2.urlopen(url)
-        except (urllib2.HTTPError, urllib2.URLError):
+            self.handle = urllib.request.urlopen(url)
+        except (urllib.error.HTTPError, urllib.error.URLError):
             self.handle = None
         self.url = url
         self.on_pypi = url.startswith('http://pypi.python.org')
@@ -314,7 +314,7 @@ def _pypi_certified_owner(distid):
     if distid in tiny_cache:
         return tiny_cache[distid]
     logging.info('asking PyPI for contact for %s' % distid)
-    pypi = xmlrpclib.ServerProxy('http://python.org/pypi')
+    pypi = xmlrpc.client.ServerProxy('http://python.org/pypi')
     versions = pypi.package_releases(distid)
     if versions == []:
         return None, None
@@ -329,7 +329,7 @@ def pypi_synchro(distutils_ids):
     """for each id, we want to check a few infos
     one PyPI to try to match the package"""
     # let's check on PyPI for the given id, who is the email contact
-    for distid, projects in distutils_ids.items():
+    for distid, projects in list(distutils_ids.items()):
         pypi_owners = _pypi_certified_owner(distid)
         if pypi_owners is (None, None):
             # there are no such package at PypI.
@@ -398,7 +398,7 @@ def install(self):
     addCatalogIndex(self, out, catalog, 'getDownloadCount', 'FieldIndex')
     addCatalogIndex(self, out, catalog, 'getLatestReleaseDate', 'DateIndex')
     addCatalogMetadata(self, out, catalog, 'getLatestReleaseDate')
-    print >> out, "Added PSC items to catalog indexes and metadata"
+    print("Added PSC items to catalog indexes and metadata", file=out)
     setupCioppinoTwoThumbs(self, out)
 
 
@@ -407,9 +407,9 @@ def addCatalogIndex(self, out, catalog, index, type, extra=None):
 
     if index not in catalog.indexes():
         catalog.addIndex(index, type, extra)
-        print >> out, "Added index", index, "to catalog"
+        print("Added index", index, "to catalog", file=out)
     else:
-        print >> out, "Index", index, "already in catalog"
+        print("Index", index, "already in catalog", file=out)
 
 
 def addCatalogMetadata(self, out, catalog, column):
@@ -417,9 +417,9 @@ def addCatalogMetadata(self, out, catalog, column):
 
     if column not in catalog.schema():
         catalog.addColumn(column)
-        print >> out, "Added", column, "to catalog metadata"
+        print("Added", column, "to catalog metadata", file=out)
     else:
-        print >> out, column, "already in catalog metadata"
+        print(column, "already in catalog metadata", file=out)
 
 
 def setupCioppinoTwoThumbs(self, out):
@@ -432,7 +432,7 @@ def setupCioppinoTwoThumbs(self, out):
     qi = getToolByName(self, 'portal_quickinstaller')
     if not qi.isProductInstalled('cioppino.twothumbs'):
         qi.installProduct('cioppino.twothumbs',)
-        print >> out, "Installed cioppino.twothumbs"
+        print("Installed cioppino.twothumbs", file=out)
 
 
 def importVarious(context):
@@ -445,4 +445,4 @@ def importVarious(context):
         return
 
     site = context.getSite()
-    print install(site)
+    print(install(site))

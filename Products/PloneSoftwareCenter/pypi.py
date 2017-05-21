@@ -2,12 +2,12 @@
 
 import logging
 import transaction
-import xmlrpclib
+import xmlrpc.client
 
 from Products.CMFCore.utils import getToolByName
 from collections import deque, defaultdict
 
-client = xmlrpclib.ServerProxy('http://pypi.python.org/pypi')
+client = xmlrpc.client.ServerProxy('http://pypi.python.org/pypi')
 logger = logging.getLogger('Products.PloneSoftwareCenter')
 
 
@@ -21,14 +21,14 @@ def by_two(source):
 
 
 def package_releases(packages):
-    mcall = xmlrpclib.MultiCall(client)
+    mcall = xmlrpc.client.MultiCall(client)
     called_packages = deque()
     for package in packages:
         mcall.package_releases(package, True)
         called_packages.append(package)
         if len(called_packages) == 100:
             result = mcall()
-            mcall = xmlrpclib.MultiCall(client)
+            mcall = xmlrpc.client.MultiCall(client)
             for releases in result:
                 yield called_packages.popleft(), releases
     result = mcall()
@@ -37,7 +37,7 @@ def package_releases(packages):
 
 
 def release_data(packages):
-    mcall = xmlrpclib.MultiCall(client)
+    mcall = xmlrpc.client.MultiCall(client)
     i = 0
     for package, releases in package_releases(packages):
         for version in releases:
@@ -46,7 +46,7 @@ def release_data(packages):
             i += 1
             if i % 50 == 49:
                 result = mcall()
-                mcall = xmlrpclib.MultiCall(client)
+                mcall = xmlrpc.client.MultiCall(client)
                 for urls, data in by_two(result):
                     yield urls, data
     result = mcall()
@@ -67,7 +67,7 @@ def update_package_download_counts(context):
             downloads += url['downloads']
         counts[data.get('name')] += downloads
 
-    for package_id, downloads in counts.items():
+    for package_id, downloads in list(counts.items()):
         brain = catalog.unrestrictedSearchResults(
             getDistutilsMainId=package_id)[0]
         package = app.unrestrictedTraverse(brain.getPath())

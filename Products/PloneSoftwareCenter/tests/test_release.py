@@ -1,4 +1,4 @@
-from base import PSCTestCase
+from .base import PSCTestCase
 
 from DateTime.DateTime import DateTime
 
@@ -149,7 +149,7 @@ class TestRelease(PSCTestCase):
           'lic2|License 2|http://localhost/license2',
           ])
         self.assertEqual((('lic1', 'License 1'), ('lic2', 'License 2')),
-          self.release.getLicenseVocab().items())
+          list(self.release.getLicenseVocab().items()))
 
     def testGetCompatibilityVocab(self):
         self.portal.psc.proj.setAvailableVersions([
@@ -158,7 +158,7 @@ class TestRelease(PSCTestCase):
           ])
         self.assertEqual(
           (('2.0', '2.0'), ('1.0', '1.0')),
-          self.release.getCompatibilityVocab().items())
+          list(self.release.getCompatibilityVocab().items()))
 
     def testGetRelatedFeaturesVocab(self):
         proj = self.portal.psc.proj
@@ -176,14 +176,14 @@ class TestRelease(PSCTestCase):
 
         self.assertEqual(((proposal1.UID(), 'Proposal 1'),
           (proposal2.UID(), 'Proposal 2')),
-          self.release.getRelatedFeaturesVocab().items())
+          list(self.release.getRelatedFeaturesVocab().items()))
 
         proposal2.setTitle('Proposal 1')
         proposal2.reindexObject()
         try:
             self.assertEqual(((proposal1.UID(), 'Proposal 1'),
               (proposal2.UID(), 'Proposal 1')),
-              self.release.getRelatedFeaturesVocab().items())
+              list(self.release.getRelatedFeaturesVocab().items()))
         except:
             self.warning('*** TODO: BUG: If two proposals have the same '
               'title, the Related Features Vocabulary only displays one.')
@@ -245,7 +245,7 @@ class TestReleaseView(PSCTestCase):
         self.resetView()
         self.assertEqual(
           (('2.0', '2.0'), ('1.0', '1.0')),
-          self.view.compatibility_vocab().items())
+          list(self.view.compatibility_vocab().items()))
 
     def test_license_vocab(self):
         self.portal.psc.proj.setAvailableLicenses([
@@ -255,7 +255,7 @@ class TestReleaseView(PSCTestCase):
 
         self.resetView()
         self.assertEqual((('lic1', 'License 1'), ('lic2', 'License 2')),
-          self.view.license_vocab().items())
+          list(self.view.license_vocab().items()))
 
     def test_related_features_vocab(self):
         proj = self.portal.psc.proj
@@ -274,7 +274,7 @@ class TestReleaseView(PSCTestCase):
         self.resetView()
         self.assertEqual(((proposal1.UID(), 'Proposal 1'),
           (proposal2.UID(), 'Proposal 2')),
-          self.view.related_features_vocab().items())
+          list(self.view.related_features_vocab().items()))
 
         proposal2.setTitle('Proposal 1')
         proposal2.reindexObject()
@@ -282,7 +282,7 @@ class TestReleaseView(PSCTestCase):
         try:
             self.assertEqual(((proposal1.UID(), 'Proposal 1'),
               (proposal2.UID(), 'Proposal 1')),
-              self.view.related_features_vocab().items())
+              list(self.view.related_features_vocab().items()))
         except:
             self.warning('*** TODO: If two proposals have the same '
               'title, the Related Features Vocabulary only displays one.')

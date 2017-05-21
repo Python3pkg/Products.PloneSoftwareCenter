@@ -32,8 +32,8 @@ PSCFileSchema = BaseSchema.copy() + Schema((
         searchable=1,
         accessor="Title",
         widget=StringWidget(
-            label=_(u"label_file_title", default=u"File Description"),
-            description=_(u"help_file_title", default=u"File description. Normally something like 'Product Package', 'Windows Installer',  - or 'Events subsystem' if you have several separate modules. The actual file name will be the same as the file you upload."),
+            label=_("label_file_title", default="File Description"),
+            description=_("help_file_title", default="File description. Normally something like 'Product Package', 'Windows Installer',  - or 'Events subsystem' if you have several separate modules. The actual file name will be the same as the file you upload."),
             i18n_domain="plonesoftwarecenter",
         ),
     ),
@@ -42,8 +42,8 @@ PSCFileSchema = BaseSchema.copy() + Schema((
         primary=1,
         required=1,
         widget=FileWidget(
-            label=_(u"label_file_description", default=u"File"),
-            description=_(u"help_file_description", default=u"Click 'Browse' to upload a release file."),
+            label=_("label_file_description", default="File"),
+            description=_("help_file_description", default="Click 'Browse' to upload a release file."),
             i18n_domain="plonesoftwarecenter",
         ),
         storage=DynamicStorage(),
@@ -54,8 +54,8 @@ PSCFileSchema = BaseSchema.copy() + Schema((
         searchable=0,
         vocabulary='getPlatformVocab',
         widget=SelectionWidget(
-            label=_(u"label_file_platform", default=u"Platform"),
-            description=_(u"help_file_platform", default=u"List of platforms available for selection"),
+            label=_("label_file_platform", default="Platform"),
+            description=_("help_file_platform", default="List of platforms available for selection"),
             i18n_domain="plonesoftwarecenter",
         ),
     ),

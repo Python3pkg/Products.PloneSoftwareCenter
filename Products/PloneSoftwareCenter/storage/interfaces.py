@@ -14,9 +14,9 @@ class IPSCFileStorage(Interface):
         """removes the file `name` in an archetype instance"""
 
     title = zope.schema.TextLine(
-                title=u"Title",
+                title="Title",
                 required=True)
 
     description = zope.schema.TextLine(
-                title=u"Description",
+                title="Description",
                 required=True)

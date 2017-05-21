@@ -20,8 +20,8 @@ PSCImprovementProposalFolderSchema = OrderedBaseFolderSchema.copy() + Schema((
         searchable=1,
         mode='r', # Leave the custom auto-generated ID
         widget=StringWidget (
-            label=_(u"label_proposalfolder_short_name", default=u"Short name"),
-            description=_(u"help_proposalfolder_short_name", default=u"Short name of the container - this should be 'roadmap' to comply with the standards."),
+            label=_("label_proposalfolder_short_name", default="Short name"),
+            description=_("help_proposalfolder_short_name", default="Short name of the container - this should be 'roadmap' to comply with the standards."),
             i18n_domain="plonesoftwarecenter",
         ),
     ),
@@ -32,8 +32,8 @@ PSCImprovementProposalFolderSchema = OrderedBaseFolderSchema.copy() + Schema((
         searchable=1,
         accessor="Title",
         widget=StringWidget(
-            label=_(u"label_proposalfolder_title", default=u"Title"),
-            description=_(u"help_proposalfolder_title", default=u"Enter a title for the container"),
+            label=_("label_proposalfolder_title", default="Title"),
+            description=_("help_proposalfolder_title", default="Enter a title for the container"),
             i18n_domain="plonesoftwarecenter",
         ),
     ),
@@ -44,8 +44,8 @@ PSCImprovementProposalFolderSchema = OrderedBaseFolderSchema.copy() + Schema((
         searchable=1,
         accessor="Description",
         widget=TextAreaWidget(
-            label=_(u"label_proposalfolder_description", default=u"Description"),
-            description=_(u"help_proposalfolder_description", default=u"Enter a description of the container"),
+            label=_("label_proposalfolder_description", default="Description"),
+            description=_("help_proposalfolder_description", default="Enter a description of the container"),
             i18n_domain="plonesoftwarecenter",
         ),
     ),
@@ -56,8 +56,8 @@ PSCImprovementProposalFolderSchema = OrderedBaseFolderSchema.copy() + Schema((
         required=1,
         default=['User interface', 'Architecture'],
         widget=LinesWidget(
-            label=_(u"label_roadmap_types", default=u"Roadmap proposal types"),
-            description=_(u"help_roadmap_types", default=u"You will have a roadmap available in your project, and you can add categories of enhancement specifications below."),
+            label=_("label_roadmap_types", default="Roadmap proposal types"),
+            description=_("help_roadmap_types", default="You will have a roadmap available in your project, and you can add categories of enhancement specifications below."),
             i18n_domain="plonesoftwarecenter",
         ),
     ),

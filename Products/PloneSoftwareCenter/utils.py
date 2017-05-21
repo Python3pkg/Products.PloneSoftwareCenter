@@ -6,7 +6,7 @@ $Id$
 import os
 import re
 import zipfile
-import StringIO
+import io
 import operator
 import distutils.version
 from itertools import chain
@@ -59,7 +59,7 @@ def is_distutils_file(content, filename, filetype):
             return False
 
         try:
-            t = StringIO.StringIO(content)
+            t = io.StringIO(content)
             t.filename = filename
             z = zipfile.ZipFile(t)
             l = z.namelist()
@@ -73,7 +73,7 @@ def is_distutils_file(content, filename, filetype):
     elif filename.endswith('.zip'):
         # check for valid zip
         try:
-            t = StringIO.StringIO(content)
+            t = io.StringIO(content)
             t.filename = filename
             z = zipfile.ZipFile(t)
             l = z.namelist()
@@ -95,7 +95,7 @@ def splitUp(pred):
    """
    res = re_splitComparison.match(pred)
    if not res:
-       raise ValueError, "Bad package restriction syntax:  " + pred
+       raise ValueError("Bad package restriction syntax:  " + pred)
    comp, verStr = res.groups()
    return (comp, distutils.version.StrictVersion(verStr))
 
@@ -139,16 +139,16 @@ class VersionPredicate:
 
        versionPredicateStr = versionPredicateStr.strip()
        if not versionPredicateStr:
-           raise ValueError, "Empty package restriction"
+           raise ValueError("Empty package restriction")
        match = re_validPackage.match(versionPredicateStr)
        if not match:
-           raise ValueError, "Bad package name in " + versionPredicateStr
+           raise ValueError("Bad package name in " + versionPredicateStr)
        self.name, paren = match.groups()
        paren = paren.strip()
        if paren:
            match = re_paren.match(paren)
            if not match:
-               raise ValueError, "Expected parenthesized list: " + paren
+               raise ValueError("Expected parenthesized list: " + paren)
            str = match.groups()[0]
            self.pred = [splitUp(aPred) for aPred in str.split(",")]
            if not self.pred:

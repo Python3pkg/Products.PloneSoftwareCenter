@@ -1,4 +1,4 @@
-from base import PSCTestCase
+from .base import PSCTestCase
 
 class TestProposal(PSCTestCase):
 
@@ -88,7 +88,7 @@ class TestProposal(PSCTestCase):
     def testGetProposalTypesVocab(self):
         self.portal.psc.proj.roadmap.setProposalTypes(['Type 1', 'Type 2'])
         self.assertEqual((('Type 1', 'Type 1'), ('Type 2', 'Type 2')),
-          self.proposal.getProposalTypesVocab().items())
+          list(self.proposal.getProposalTypesVocab().items()))
 
     def test_renameAfterCreation(self):
         roadmap = self.portal.psc.proj.roadmap

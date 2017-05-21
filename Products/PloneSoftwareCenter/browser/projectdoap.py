@@ -2,7 +2,7 @@ from xml.dom import getDOMImplementation
 
 from Products.PloneSoftwareCenter.interfaces import ISoftwareCenterContent
 
-from project import ProjectView
+from .project import ProjectView
 
 
 class ProjectDOAPView(ProjectView):

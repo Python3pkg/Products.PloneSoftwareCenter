@@ -1,4 +1,4 @@
-from StringIO import StringIO
+from io import StringIO
 
 from Acquisition import aq_base
 from DateTime import DateTime
@@ -18,7 +18,7 @@ def v1beta7_v1beta8(self, out):
     """
 
     if not haveContentMigrations:
-        print >> out, "WARNING: Install contentmigrations to be able to migrate from v1 beta 7 to beta 8"
+        print("WARNING: Install contentmigrations to be able to migrate from v1 beta 7 to beta 8", file=out)
         return
 
     class ReleaseStateMigrator(BaseInlineMigrator):
@@ -67,20 +67,20 @@ def v1beta7_v1beta8(self, out):
     # Migrate release state
     walker = CustomQueryWalker(portal, ReleaseStateMigrator, query = {})
     transaction.savepoint(optimistic=True)
-    print >> out, "Migrating from field-based maturity to workflow-based maturity"
+    print("Migrating from field-based maturity to workflow-based maturity", file=out)
     walker.go()
 
     # Migrate release count variable
     walker = CustomQueryWalker(portal, ReleaseCountMigrator, query = {})
     transaction.savepoint(optimistic=True)
-    print >> out, "Adding release count property"
+    print("Adding release count property", file=out)
     walker.go()
 
 def migrate(self):
     """Run migrations
     """
     out = StringIO()
-    print >> out, "Starting PloneSoftwareCenter migration"
+    print("Starting PloneSoftwareCenter migration", file=out)
     v1beta7_v1beta8(self, out)
-    print >> out, "PloneSoftwareCenter migrations finished"
+    print("PloneSoftwareCenter migrations finished", file=out)
     return out.getvalue()

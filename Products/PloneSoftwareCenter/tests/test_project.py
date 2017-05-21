@@ -1,5 +1,5 @@
-from base import PSCTestCase
-from base import developer_warning
+from .base import PSCTestCase
+from .base import developer_warning
 from Testing import ZopeTestCase
 
 from DateTime.DateTime import DateTime
@@ -164,7 +164,7 @@ class TestProject(PSCTestCase):
           ])
 
         self.assertEqual((('cat1', 'Category 1'), ('cat2', 'Category 2'),
-          ('cat3', 'Category 3'),), self.proj.getCategoriesVocab().items())
+          ('cat3', 'Category 3'),), list(self.proj.getCategoriesVocab().items()))
 
     def testGetSelfCertificationCriteriaVocab(self):
         self.psc.setAvailableSelfCertificationCriteria([
@@ -173,7 +173,7 @@ class TestProject(PSCTestCase):
           ])
 
         self.assertEqual((('Criterion 1', 'Criterion 1'), ('Criterion 2',
-          'Criterion 2')), self.proj.getSelfCertificationCriteriaVocab().items())
+          'Criterion 2')), list(self.proj.getSelfCertificationCriteriaVocab().items()))
 
     def testGetReleaseFolder(self):
         self.assertEqual(self.proj.releases, self.proj.getReleaseFolder())
@@ -256,7 +256,7 @@ class TestProject(PSCTestCase):
 
         self.assertEqual(((proposal1.UID(), 'Proposal 1'),
           (proposal2.UID(), 'Proposal 2')),
-          self.proj.getAvailableFeaturesAsDisplayList().items())
+          list(self.proj.getAvailableFeaturesAsDisplayList().items()))
 
 
     def testGetAvailableFeaturesAsDisplayListBlockDupes(self):
@@ -276,13 +276,13 @@ class TestProject(PSCTestCase):
 
         try:
             self.assertEqual(((proposal4.UID(), proposal4.Title()),),
-              self.proj.getAvailableFeaturesAsDisplayList().items())
+              list(self.proj.getAvailableFeaturesAsDisplayList().items()))
         except:
             statement = '*** TODO: BUG: If two proposals have the same '
             statement += 'title, the Related Features Vocabulary only displays one.'
             #self.warning(statement)
             self.warning([((proposal4.UID(), proposal4.Title()),),
-              self.proj.getAvailableFeaturesAsDisplayList().items()])
+              list(self.proj.getAvailableFeaturesAsDisplayList().items())])
 
 class TestProjectWithPloneHelpCenterIntegration(PSCTestCase):
     def afterSetUp(self):

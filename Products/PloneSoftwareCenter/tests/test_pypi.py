@@ -1,4 +1,4 @@
-from base import PSCTestCase
+from .base import PSCTestCase
 
 from AccessControl.Permission import Permission
 from AccessControl import Unauthorized

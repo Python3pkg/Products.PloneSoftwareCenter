@@ -1,4 +1,4 @@
-from base import PSCTestCase
+from .base import PSCTestCase
 
 import os
 from cgi import FieldStorage
@@ -55,7 +55,7 @@ class TestPSCFile(PSCTestCase):
     def testGetPlatformVocab(self):
         self.portal.psc.setAvailablePlatforms(['Platform 1', 'Platform 2'])
         self.assertEqual((('Platform 1', 'Platform 1'), ('Platform 2',
-          'Platform 2')), self.file.getPlatformVocab().items())
+          'Platform 2')), list(self.file.getPlatformVocab().items()))
 
 class TestPSCFileView(PSCTestCase):
 

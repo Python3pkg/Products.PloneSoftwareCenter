@@ -1,4 +1,4 @@
-from base import PSCTestCase
+from .base import PSCTestCase
 
 class TestPSCFileLink(PSCTestCase):
 
@@ -27,7 +27,7 @@ class TestPSCFileLink(PSCTestCase):
     def testGetPlatformVocab(self):
         self.portal.psc.setAvailablePlatforms(['Platform 1', 'Platform 2'])
         self.assertEqual((('Platform 1', 'Platform 1'), ('Platform 2',
-          'Platform 2')), self.filelink.getPlatformVocab().items())
+          'Platform 2')), list(self.filelink.getPlatformVocab().items()))
 
 class TestPSCFileLinkView(PSCTestCase):
 

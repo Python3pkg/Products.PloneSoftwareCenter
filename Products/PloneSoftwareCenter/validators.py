@@ -46,8 +46,8 @@ class ProjectIdValidator:
 
     def __call__(self, value, *args, **kwargs):
         instance = kwargs['instance']
-        if value in instance.getAvailableCategoriesAsDisplayList().keys():
-            return _(u"Short name %s is invalid - it is the same as the name of a project category") % (value,)
+        if value in list(instance.getAvailableCategoriesAsDisplayList().keys()):
+            return _("Short name %s is invalid - it is the same as the name of a project category") % (value,)
         else:
             return 1
 
@@ -71,7 +71,7 @@ class ProjectContactValidator:
         #print value
         #print is_valid_contact(value)
         #return 1
-        return _(u"""Not a valid contact.""")
+        return _("""Not a valid contact.""")
 
 
 # New style validators
